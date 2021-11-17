@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seneca/widgets/custom_button_navegation.dart';
 
 class PrincipalScreen extends StatelessWidget {
   @override
@@ -7,6 +8,7 @@ class PrincipalScreen extends StatelessWidget {
       body: Center(
         child: Text('Hola Mundo'),
       ),
+      bottomNavigationBar: CustomButtonNavegation(),
     );
   }
 }

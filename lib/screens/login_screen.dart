@@ -145,6 +145,7 @@ class _CuadroContrasenaState extends State<CuadroContrasena> {
                   child: Icon(
                     Icons.remove_red_eye,
                     size: 30,
+                    color: Colors.white,
                   ),
                 ),
                 onTap: () => setState(
