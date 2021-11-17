@@ -96,7 +96,7 @@ class CuadroUsuario extends StatelessWidget {
         style: TextStyle(color: Colors.white, fontSize: 20),
         decoration: InputDecoration(
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
+              borderRadius: BorderRadius.circular(10.0),
               borderSide: BorderSide(color: Colors.white, width: 0.0),
             ),
             hintText: "Usuario",

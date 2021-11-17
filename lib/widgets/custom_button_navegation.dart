@@ -19,18 +19,18 @@ class CustomButtonNavegation extends StatelessWidget {
       unselectedItemColor: Color(0xff9b9b9b),
 
       //item seleccionado
-      currentIndex: 0,
+      currentIndex: 1,
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: "Inicio",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.watch_later),
+          icon: Icon(Icons.watch_later_outlined),
           label: "Agenda",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.chat_bubble),
+          icon: Icon(Icons.chat_bubble_outline),
           label: "Comunicaciones",
         ),
         BottomNavigationBarItem(
