@@ -19,7 +19,7 @@ class CustomButtonNavegation extends StatelessWidget {
       unselectedItemColor: Color(0xff9b9b9b),
 
       //item seleccionado
-      currentIndex: 1,
+      currentIndex: 0,
       items: [
         BottomNavigationBarItem(
           icon: Icon(Icons.home),

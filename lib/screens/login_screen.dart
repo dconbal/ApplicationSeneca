@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatelessWidget {
   bool _mostrarPass = true;
@@ -50,6 +51,20 @@ class LoginPage extends StatelessWidget {
                       SizedBox(height: 20),
                       //boton para acceder
                       Boton(),
+
+                      // SizedBox(height: 20),
+
+                      // ElevatedButton.icon(
+                      //   style: ElevatedButton.styleFrom(
+                      //     primary: Colors.white,
+                      //     onPrimary: Color(0xff27578b),
+                      //     minimumSize: Size(double.infinity, 50),
+                      //   ),
+                      //   icon:
+                      //       FaIcon(FontAwesomeIcons.google, color: Colors.red),
+                      //   label: Text('Sign up with Google'),
+                      //   onPressed: () {},
+                      // ),
 
                       SizedBox(height: 50),
                       //He olvidado mi contraseña

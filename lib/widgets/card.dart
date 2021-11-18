@@ -84,13 +84,17 @@ class ParteDeAbajo extends StatelessWidget {
       child: Row(
         children: [
           SizedBox(width: 30),
-          Icon(Icons.access_alarm_outlined, color: Colors.white),
+          GestureDetector(
+              child: Icon(Icons.access_alarm_outlined, color: Colors.white),
+              onTap: () {}),
           SizedBox(width: 10),
           Text("Avisos", style: textStyle2),
           SizedBox(width: 30),
-          Text("|", style: textStyle2),
+          VerticalDivider(color: Colors.white),
           SizedBox(width: 10),
-          Icon(Icons.door_front_door, color: Colors.white),
+          GestureDetector(
+              child: Icon(Icons.door_front_door, color: Colors.white),
+              onTap: () {}),
           SizedBox(width: 10),
           Text("Bandeja de firma", style: textStyle2),
         ],
