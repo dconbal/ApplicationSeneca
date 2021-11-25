@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:seneca/models/login.dart';
+import 'package:seneca/providers/login_provider.dart';
 
 class LoginPage extends StatelessWidget {
   bool _mostrarPass = true;
@@ -7,6 +9,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -22,81 +25,84 @@ class LoginPage extends StatelessWidget {
           ),
         ),
         //Si quitas el ListView al abrir el teclado sale sale un error justo encima del teclado
-        child: ListView(
-          children: [
-            Center(
-              child: SafeArea(
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 350,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+        child: Center(
+          child: SafeArea(
+            child: Container(
+              alignment: Alignment.center,
+              width: 350,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 5),
+                  //titulo
+                  Text(
+                    "iSéneca",
+                    style: TextStyle(
+                      fontSize: 80,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  //cuadro de texto del usuario
+                  CuadroUsuario(),
+                  SizedBox(height: 20),
+                  //Cuadro de la contraseña
+                  CuadroContrasena(),
+                  SizedBox(height: 20),
+                  //boton para acceder
+                  Boton(),
+
+                  // SizedBox(height: 20),
+
+                  // ElevatedButton.icon(
+                  //   style: ElevatedButton.styleFrom(
+                  //     primary: Colors.white,
+                  //     onPrimary: Color(0xff27578b),
+                  //     minimumSize: Size(double.infinity, 50),
+                  //   ),
+                  //   icon:
+                  //       FaIcon(FontAwesomeIcons.google, color: Colors.red),
+                  //   label: Text('Sign up with Google'),
+                  //   onPressed: () {},
+                  // ),
+
+                  SizedBox(height: 50),
+                  //He olvidado mi contraseña
+                  RecuperarContrasena(),
+
+                  SizedBox(height: 180),
+
+                  LogoJuntaAndalucia(),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      SizedBox(height: 30),
-                      //titulo
                       Text(
-                        "iSéneca",
-                        style: TextStyle(
-                          fontSize: 80,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 20),
-                      //cuadro de texto del usuario
-                      CuadroUsuario(),
-                      SizedBox(height: 20),
-                      //Cuadro de la contraseña
-                      CuadroContrasena(),
-                      SizedBox(height: 20),
-                      //boton para acceder
-                      Boton(),
-
-                      // SizedBox(height: 20),
-
-                      // ElevatedButton.icon(
-                      //   style: ElevatedButton.styleFrom(
-                      //     primary: Colors.white,
-                      //     onPrimary: Color(0xff27578b),
-                      //     minimumSize: Size(double.infinity, 50),
-                      //   ),
-                      //   icon:
-                      //       FaIcon(FontAwesomeIcons.google, color: Colors.red),
-                      //   label: Text('Sign up with Google'),
-                      //   onPressed: () {},
-                      // ),
-
-                      SizedBox(height: 50),
-                      //He olvidado mi contraseña
-                      RecuperarContrasena(),
-
-                      SizedBox(height: 180),
-
-                      LogoJuntaAndalucia(),
-
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            "v11.3.0",
-                            style: TextStyle(color: Colors.white, fontSize: 20),
-                          )
-                        ],
+                        "v11.3.0",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       )
                     ],
-                  ),
-                ),
+                  )
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-class CuadroUsuario extends StatelessWidget {
+class CuadroUsuario extends StatefulWidget {
+  @override
+  State<CuadroUsuario> createState() => _CuadroUsuarioState();
+}
+
+class _CuadroUsuarioState extends State<CuadroUsuario> {
+  static String username = "";
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -116,6 +122,11 @@ class CuadroUsuario extends StatelessWidget {
             ),
             hintText: "Usuario",
             hintStyle: TextStyle(color: Colors.white, fontSize: 20)),
+        onChanged: (valor) {
+          setState(() {
+            username = valor;
+          });
+        },
       ),
     );
   }
@@ -128,7 +139,7 @@ class CuadroContrasena extends StatefulWidget {
 
 class _CuadroContrasenaState extends State<CuadroContrasena> {
   bool _mostrarPass = false;
-  String contrasena = "";
+  static String contrasena = "";
 
   @override
   Widget build(BuildContext context) {
@@ -172,6 +183,11 @@ class _CuadroContrasenaState extends State<CuadroContrasena> {
             ],
           ),
         ),
+        onChanged: (valor) {
+          setState(() {
+            contrasena = valor;
+          });
+        },
       ),
     );
   }
@@ -180,12 +196,22 @@ class _CuadroContrasenaState extends State<CuadroContrasena> {
 class Boton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final usuarios = Provider.of<LoginProvider>(context);
     return Container(
       height: 60,
       width: 350,
       color: Colors.white,
       child: TextButton(
-        onPressed: () => Navigator.pushNamed(context, 'principal'),
+        onPressed: () {
+          for (int i = 0; i <= usuarios.list.length - 1; i++) {
+            if (_CuadroUsuarioState.username == usuarios.list[i].username) {
+              if (_CuadroContrasenaState.contrasena ==
+                  usuarios.list[i].password) {
+                Navigator.pushNamed(context, 'principal');
+              }
+            }
+          }
+        },
         child: Text(
           "Entrar",
           style: TextStyle(fontSize: 20, color: Color(0xff27578b)),

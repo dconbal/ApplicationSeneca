@@ -6,7 +6,7 @@ class Background extends StatelessWidget {
     return Container(
       color: Color(0xff02569d),
       width: double.infinity,
-      height: 145,
+      height: 135,
     );
   }
 }

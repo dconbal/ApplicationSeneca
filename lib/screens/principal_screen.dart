@@ -13,7 +13,7 @@ class PrincipalScreen extends StatelessWidget {
           children: [
             Background(),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: Column(
                 children: [
                   Text(
