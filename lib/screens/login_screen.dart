@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:seneca/models/login.dart';
+import 'package:seneca/firebase/login_firebase.dart';
 import 'package:seneca/providers/login_provider.dart';
 
 class LoginPage extends StatelessWidget {
@@ -8,6 +10,8 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GoogleSignInProvider service = new GoogleSignInProvider();
+    final usuarios = Provider.of<LoginProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -53,25 +57,66 @@ class LoginPage extends StatelessWidget {
                   //boton para acceder
                   Boton(),
 
-                  // SizedBox(height: 20),
+                  SizedBox(height: 20),
 
-                  // ElevatedButton.icon(
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: Colors.white,
-                  //     onPrimary: Color(0xff27578b),
-                  //     minimumSize: Size(double.infinity, 50),
-                  //   ),
-                  //   icon:
-                  //       FaIcon(FontAwesomeIcons.google, color: Colors.red),
-                  //   label: Text('Sign up with Google'),
-                  //   onPressed: () {},
-                  // ),
+                  //boton de google
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      onPrimary: Color(0xff27578b),
+                      minimumSize: Size(double.infinity, 50),
+                    ),
+                    icon: FaIcon(FontAwesomeIcons.google, color: Colors.red),
+                    label: Text('Sign up with Google'),
+                    onPressed: () async {
+                      bool entrar = false;
+                      try {
+                        await service.signOutFromGoogle();
+                        await service.signInwithGoogle();
+
+                        if (FirebaseAuth.instance.currentUser != null) {
+                          final correoUser =
+                              FirebaseAuth.instance.currentUser!.email;
+                          for (int i = 0; i <= usuarios.list.length - 1; i++) {
+                            if (correoUser == usuarios.list[i].username) {
+                              entrar = true;
+                              Navigator.pushNamed(context, 'principal');
+                            }
+                          }
+                        }
+                        //sino entra
+                        if (!entrar) {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Error"),
+                                  content: Text(
+                                      "El correo no tiene permisos para acceder"),
+                                  actions: [
+                                    TextButton(
+                                      child: Text("Ok"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    )
+                                  ],
+                                );
+                              });
+                        }
+                      } catch (e) {
+                        if (e is FirebaseAuthException) {
+                          print(e.message!);
+                        }
+                      }
+                    },
+                  ),
 
                   SizedBox(height: 50),
                   //He olvidado mi contraseña
                   RecuperarContrasena(),
 
-                  SizedBox(height: 180),
+                  SizedBox(height: 110),
 
                   LogoJuntaAndalucia(),
 

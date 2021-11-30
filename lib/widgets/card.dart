@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:seneca/firebase/login_firebase.dart';
 
 class PrincipalCard extends StatelessWidget {
   @override
@@ -58,14 +60,22 @@ class Contenido extends StatelessWidget {
 class ParteDeArriba extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final correoUser = FirebaseAuth.instance.currentUser!.email;
+    final sesion = new GoogleSignInProvider();
     return Container(
       height: 40,
       child: Row(
         children: [
-          Text("Chia Diaz, Margarita",
+          Text(correoUser!,
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          SizedBox(width: 120),
-          Icon(Icons.people),
+          SizedBox(width: 100),
+          GestureDetector(
+            child: Icon(Icons.people),
+            onTap: () {
+              sesion.signOutFromGoogle();
+              Navigator.pushNamed(context, 'login');
+            },
+          ),
         ],
       ),
     );
@@ -86,7 +96,10 @@ class ParteDeAbajo extends StatelessWidget {
           SizedBox(width: 30),
           GestureDetector(
               child: Icon(Icons.access_alarm_outlined, color: Colors.white),
-              onTap: () {}),
+              onTap: () {
+                GoogleSignInProvider service = new GoogleSignInProvider();
+                service.signOutFromGoogle();
+              }),
           SizedBox(width: 10),
           Text("Avisos", style: textStyle2),
           SizedBox(width: 30),

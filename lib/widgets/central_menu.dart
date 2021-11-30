@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seneca/firebase/login_firebase.dart';
 
 class CentralMenu extends StatelessWidget {
   @override
@@ -37,14 +38,14 @@ class Tarjeta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () sync* {},
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         height: 170,
         width: 113,
         child: Column(
           children: [
-            SizedBox(height: 50),
+            SizedBox(height: 30),
             Image(
               image: AssetImage("assets/" + imagen),
               width: 50,
