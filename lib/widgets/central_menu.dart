@@ -9,15 +9,28 @@ class CentralMenu extends StatelessWidget {
         SizedBox(height: 10),
         Row(
           children: [
-            Tarjeta(imagen: "sombrero.png", texto: "Alumnado del \n centro"),
-            Tarjeta(imagen: "profesor.png", texto: "Personal del \n centro"),
-            Tarjeta(imagen: "covid.png", texto: "Informacion \n Covid"),
+            Tarjeta(
+                imagen: "sombrero.png",
+                texto: "Alumnado del \n centro",
+                pagina: 'screens'),
+            Tarjeta(
+                imagen: "profesor.png",
+                texto: "Personal del \n centro",
+                pagina: ""),
+            Tarjeta(
+                imagen: "covid.png", texto: "Informacion \n Covid", pagina: ""),
           ],
         ),
         Row(
           children: [
-            Tarjeta(imagen: "campana.png", texto: "Tablon de \n anuncios"),
-            Tarjeta(imagen: "calendario.png", texto: "Calendario \n Escolar"),
+            Tarjeta(
+                imagen: "campana.png",
+                texto: "Tablon de \n anuncios",
+                pagina: ""),
+            Tarjeta(
+                imagen: "calendario.png",
+                texto: "Calendario \n Escolar",
+                pagina: ""),
           ],
         )
       ],
@@ -28,17 +41,23 @@ class CentralMenu extends StatelessWidget {
 class Tarjeta extends StatelessWidget {
   final String imagen;
   final String texto;
+  final String pagina;
 
   const Tarjeta({
     Key? key,
     required this.imagen,
     required this.texto,
+    required this.pagina,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () sync* {},
+      onTap: () {
+        if (pagina != "") {
+          Navigator.pushNamed(context, pagina);
+        }
+      },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         height: 170,
