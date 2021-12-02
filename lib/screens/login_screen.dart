@@ -88,7 +88,10 @@ class LoginPage extends StatelessWidget {
                         if (!entrar) {
                           showDialog(
                               context: context,
+                              //Se tenga que pulsar el boton para salir de la ventana
+                              barrierDismissible: false,
                               builder: (BuildContext context) {
+                                //Ventana emergente
                                 return AlertDialog(
                                   title: Text("Error"),
                                   content: Text(

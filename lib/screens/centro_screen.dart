@@ -7,16 +7,53 @@ class CentroScreen extends StatelessWidget {
       appBar: AppBar(title: Center(child: Text("Alumnado del centro"))),
       body: Container(
         width: double.infinity,
-        child: ListView(
+        child: Column(
           children: [
-            Elementos(
-                redireccionar: 'conductas', texto: "Conductas contrarias"),
-            Elementos(redireccionar: '', texto: "Notas"),
-            Elementos(redireccionar: '', texto: "Buscar Alumno"),
-            Elementos(redireccionar: '', texto: "Alumnos centro")
+            Lista(
+                icono: Icons.alarm,
+                texto: "Conductas contrarias",
+                redireccionar: 'conductas'),
+            Lista(
+                icono: Icons.search, texto: "Buscar Alumno", redireccionar: ''),
+            Lista(
+                icono: Icons.album, texto: "Alumnos centro", redireccionar: ''),
           ],
+
+          //ListView(
+          //children: [
+          //  Elementos(
+          //      redireccionar: 'conductas', texto: "Conductas contrarias"),
+          //  Elementos(redireccionar: '', texto: "Notas"),
+          //  Elementos(redireccionar: '', texto: "Buscar Alumno"),
+          //  Elementos(redireccionar: '', texto: "Alumnos centro")
+          //],
         ),
       ),
+    );
+  }
+}
+
+class Lista extends StatelessWidget {
+  const Lista({
+    Key? key,
+    required this.texto,
+    required this.redireccionar,
+    required this.icono,
+  }) : super(key: key);
+
+  final String texto;
+  final String redireccionar;
+  final IconData icono;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(texto, style: TextStyle(fontSize: 20)),
+      trailing: Icon(Icons.keyboard_arrow_right),
+      leading: Icon(icono),
+      onTap: () => {
+        if (redireccionar != "") {Navigator.pushNamed(context, redireccionar)}
+      },
     );
   }
 }
